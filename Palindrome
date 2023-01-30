@@ -1,0 +1,74 @@
+#include <iostream>
+#include <stack>
+#include <queue>
+#include <string>
+#include<fstream>
+using namespace std;
+
+bool operator==(const stack<char>&, const queue<char>&);
+bool operator!=(const stack<char>&, const queue<char>&);
+
+int main() {
+    stack<char> *s;
+    queue<char> *q;
+    string input;
+    string::iterator i;
+    int counter=0;
+    ifstream pal("palindrome.txt");
+
+    while (true) {
+        s = new stack<char>;
+        q = new queue<char>;
+
+    while (getline(pal,input)){
+		
+    for ( i = input.begin(); i != input.end(); i++) {
+         s->push(*i);
+         q->push(*i);
+    }
+        cout << input << " is ";
+        
+    if (*s != *q) {
+            cout << "not ";
+     }
+    else{counter++;}
+		
+    cout << "a palindrome." << endl;
+        
+        delete s;
+        delete q;
+  
+		
+     cout<<"Number of Palindromic words:"<<" "<<counter<<endl;
+     break; 
+		
+		}  
+	
+}
+	
+	
+   
+   system("PAUSE");
+   return 0;
+}
+
+bool operator==(const stack<char> &s1, const queue<char> &q1) {
+    bool eq = true;
+    stack<char> s = s1;
+    queue<char> q = q1;
+
+    if (s.size() == q.size()) {
+        while ((s.empty() == false) && (eq == true)) {
+            eq = (s.top() == q.front());
+            s.pop();
+            q.pop();
+        }
+    } else {
+        eq = false;
+    }
+    return eq;
+}
+
+bool operator!=(const stack<char> &s, const queue<char> &q) {
+    return !(s == q);
+} 
